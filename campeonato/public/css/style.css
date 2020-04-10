@@ -1,0 +1,29 @@
+.card_option {
+    width: 20%;
+    margin-top: 6%;
+}
+
+.card {
+    margin-top: 6%;
+}
+
+.icon_option {
+    width: 60%;
+    text-align: center;
+}
+
+.card-body a,
+.card-body p,
+.card-body h4 {
+    text-align: center;
+}
+
+.card-body p {
+    font-size: 17px;
+}
+
+a,
+p,
+.card-body h4 {
+    font-family: 'Times New Roman', Times, serif;
+}

@@ -1,100 +1,59 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')<br><br>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+<div class="card card_option col-md-3" >
+    
+    <img src="{{ asset('img/cup.png') }}" class="rounded mx-auto d-block icon_option" alt="...">
+    <div class="card-body col-md-12">
+      <h4 class="card-title">Torneo</h4>
+      <p class="card-text ">Puedes crear, editar y eliminar un torneo.</p>
+      <a href="#" class="btn btn-outline-primary btn-lg btn-block">Ir</a>
+    </div>
+  </div>
+  <div class="card card_option col-md-3 offset-md-1" >
+    <br>
+    <img src="{{ asset('img/team1.png') }}" class="rounded mx-auto d-block icon_option" alt="...">
+    <div class="card-body col-md-12">
+      <h4 class="card-title">Equipo</h4>
+      <p class="card-text ">Puedes crear, editar y eliminar un equipo.</p>
+      <a href="#" class="btn btn-outline-primary btn-lg btn-block">Ir</a>
+    </div>
+  </div>
+  <div class="card card_option col-md-3  offset-md-1" >
+    <br>
+    <img src="{{ asset('img/football_player.png') }}" class="rounded mx-auto d-block icon_option" alt="...">
+    <div class="card-body col-md-12">
+      <h4 class="card-title">Jugador</h4>
+      <p class="card-text ">Puedes crear, editar y eliminar un jugador de su respectivo equipo.</p>
+      <a href="#" class="btn btn-outline-primary btn-lg btn-block">Ir</a>
+    </div>
+  </div>
+  <div class="card card_option col-md-3 " >
+    <br>
+    <img src="{{ asset('img/calendar.png') }}" class="rounded mx-auto d-block icon_option" alt="...">
+    <div class="card-body col-md-12">
+      <h4 class="card-title">Calendario</h4>
+      <p class="card-text ">Puedes configurar la hora y fechas de los partidos y generar los encuentros.</p>
+      <a href="#" class="btn btn-outline-primary btn-lg btn-block">Ir</a>
+    </div>
+  </div>
+  <div class="card card_option col-md-3 offset-1 " >
+    <br>
+    <img src="{{ asset('img/plane.png') }}" class="rounded mx-auto d-block icon_option" alt="...">
+    <div class="card-body col-md-12">
+                                                    <p class="card-text ">Puedes observar la informacion de los equipos como : cantidad de punto,partidos jugados,goles a favor, goles en contra y el rendimiento.</p>
+      <a href="#" class="btn btn-outline-primary btn-lg btn-block">Ir</a>
+    </div>
+  </div>
+  <div class="card card_option col-md-3 offset-1  " >
+    <br>
+    <img src="{{ asset('img/referee.png') }}" class="rounded mx-auto d-block icon_option" alt="...">
+    <div class="card-body col-md-12">
+      <h4 class="card-title">Indiciplina</h4>
+      <p class="card-text ">Puedes observar la siguiente información: cantidad de tarjetas amarillas y rojas hacia los jugadores.</p>
+      <a href="#" class="btn btn-outline-primary btn-lg btn-block">Ir</a>
+    </div>
+  </div>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+@endsection
