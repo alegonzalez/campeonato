@@ -18,7 +18,8 @@
     text-align: center;
 }
 
-.card-body p {
+.card-body p,
+.setting_button {
     font-size: 17px;
 }
 
@@ -26,4 +27,13 @@ a,
 p,
 .card-body h4 {
     font-family: 'Times New Roman', Times, serif;
+}
+
+label {
+    font-size: 18px;
+}
+
+.icon_cup {
+    width: 35%;
+    margin: 2%;
 }

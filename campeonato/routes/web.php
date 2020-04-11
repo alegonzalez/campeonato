@@ -13,10 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('welcome');
 });
-
+Route::get('/logout', function () {
+    Auth::logout();
+    return Redirect::to('home');
+});
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+//championship
+Route::get('/championship/index', 'ChampionshipController@index')->name('championship/index');
+Route::get('/championship/edit/{id_championship}', 'ChampionshipController@edit')->name('championship/edit');
+Route::post('/championship/update', 'ChampionshipController@update')->name('update');
+Route::get('/championship/create/', 'ChampionshipController@create')->name('championship/create');
+Route::post('/championship/storage/', 'ChampionshipController@storage')->name('storage');
+Route::delete('/championship/{id_championship}', 'ChampionshipController@destroy');
