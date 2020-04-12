@@ -29,4 +29,4 @@ Route::get('/championship/edit/{id_championship}', 'ChampionshipController@edit'
 Route::post('/championship/update', 'ChampionshipController@update')->name('update');
 Route::get('/championship/create/', 'ChampionshipController@create')->name('championship/create');
 Route::post('/championship/storage/', 'ChampionshipController@storage')->name('storage');
-Route::delete('/championship/{id_championship}', 'ChampionshipController@destroy');
+Route::delete('/championship/{id_championship}', 'ChampionshipController@destroy')->name('destroy');;

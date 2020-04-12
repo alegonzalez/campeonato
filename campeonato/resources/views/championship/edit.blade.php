@@ -10,9 +10,9 @@
             <div class="form-group text-center">
                 <label for="name_championship">Nombre del torneo</label>
                 <input type="text" class="form-control" id="name_championship" name="name_championship" value="{{$championship[0]->name}}">
-                <input type="hidden" name="id_championship" value="{{base64_encode($championship[0]->id)}}">
+                <!--<input type="hidden" name="id_championship" value="{{base64_encode($championship[0]->id)}}">-->
                 <br>
-                <button class="btn btn-outline-success setting_button btn-lg btn-block"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Editar</button>
+                <button class="btn btn-outline-success setting_button btn-lg btn-block" id="{{$championship[0]->id}})"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Editar</button>
               </div>
         </form>
     </div>

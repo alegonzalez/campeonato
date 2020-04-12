@@ -18,10 +18,10 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <link rel=”stylesheet” href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.css">
+        <!-- Scripts -->
         <script src="https://use.fontawesome.com/c3d5f77dc9.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="{{ asset('js/alert_sweet.js') }}" defer></script>
         
     </head>
     <body>
