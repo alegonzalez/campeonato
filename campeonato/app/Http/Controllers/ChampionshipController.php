@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
   use Auth;
   
   
+  
 
   class ChampionshipController extends Controller
   {
@@ -89,7 +90,7 @@ namespace App\Http\Controllers;
 
       /**
        * This function delete a specific championship
-       * @return boolean 
+       * @return redirect with  route  championship/index
        */
       public function destroy($id){
         Team::destroy($id);

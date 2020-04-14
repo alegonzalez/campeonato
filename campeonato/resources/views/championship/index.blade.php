@@ -6,7 +6,7 @@
       </div>
       @if(count($list_championship) == 0)
       <div  class="col-md-12 text-center">
-        <h1 class="empty">No se encuentra ningun torneo registrado</h1>
+        <h1 class="empty">No se encuentra ningun torneo registrado.</h1>
       </div>
       
       @else

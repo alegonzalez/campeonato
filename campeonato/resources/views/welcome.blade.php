@@ -26,7 +26,7 @@
           <p class="card-text ">Puedes  visualizar la lista equipos.</p>    
           @endguest
           
-          <a href="#" class="btn btn-outline-primary btn-lg btn-block">Ir</a>
+          <a href="{{ route('team/index',['key_share' => $key_share]) }}" class="btn btn-outline-primary btn-lg btn-block">Ir</a>
         </div>
       </div>
       <div class="card card_option col-md-3  offset-md-1" >

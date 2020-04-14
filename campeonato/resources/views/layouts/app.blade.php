@@ -42,7 +42,7 @@
             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="{{ route('login') }}">Compartir</a>
+            <a class="nav-link" href="{{ route('share') }}">Compartir</a>
           </li>
           @auth
           <li class="nav-item dropdown ml-auto">
