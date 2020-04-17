@@ -19,7 +19,9 @@ class CreatePlayersTable extends Migration
             $table->integer('shirt_number');
             $table->integer('position');
             $table->integer('goals');
+            $table->string('path_profile');
             $table->foreignId('id_team');
+
             $table->foreign('id_team')->references('id')->on('teams');
             $table->timestamps();
         });

@@ -16,6 +16,7 @@ class CreateTeamsTable extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
+            $table->string('path_image');
             $table->foreignId('id_championships');
             $table->foreign('id_championships')->references('id')->on('championships');
             $table->timestamps();

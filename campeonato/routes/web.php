@@ -37,12 +37,7 @@ Route::get('/user/share/', 'UserController@share_page')->name('share');
 
 //team
 Route::get('/team/index/{key_share?}', 'TeamController@index')->name('team/index');
-//Route::get('/team/get_team/{key_share?}', 'TeamController@get_team')->name('team');
+Route::get('/team/create', 'TeamController@create')->name('team/create');
+Route::post('/team/storage', 'TeamController@storage')->name('team/storage');
 Route::get('/team/edit/{id_team}', 'TeamController@edit')->name('team/edit');
 Route::delete('/team/{id_team}', 'TeamController@destroy')->name('team/destroy');
-/*
-Route::get('/team/edit/{id_championship}', 'TeamController@edit')->name('team/edit');
-Route::post('/team/update', 'TeamController@update')->name('update');
-Route::get('/team/create/', 'TeamController@create')->name('team/create');
-Route::post('/team/storage/', 'TeamController@storage')->name('storage');
-Route::delete('/team/{id_team}', 'TeamController@destroy')->name('destroy');*/
