@@ -18,7 +18,7 @@ class CreateTeamsTable extends Migration
             $table->string('name', 100);
             $table->string('path_image');
             $table->foreignId('id_championships');
-            $table->foreign('id_championships')->references('id')->on('championships');
+            $table->foreign('id_championships')->references('id')->on('championships')->onDelete('cascade');;
             $table->timestamps();
         });
     }

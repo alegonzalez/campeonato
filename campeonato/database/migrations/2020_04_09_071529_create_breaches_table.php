@@ -19,7 +19,7 @@ class CreateBreachesTable extends Migration
             $table->integer("yellow_card");
             $table->integer("red_card");
             $table->foreignId('id_player');
-            $table->foreign('id_player')->references('id')->on('players');
+            $table->foreign('id_player')->references('id')->on('players')->onDelete('cascade');;
             $table->timestamps();
         });
     }

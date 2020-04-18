@@ -20,7 +20,7 @@ class CreateCalendarsTable extends Migration
             $table->date("date_game");
             $table->time("time_game");
             $table->foreignId('id_championships');
-            $table->foreign('id_championships')->references('id')->on('championships');
+            $table->foreign('id_championships')->references('id')->on('championships')->onDelete('cascade');;
             $table->timestamps();
         });
     }

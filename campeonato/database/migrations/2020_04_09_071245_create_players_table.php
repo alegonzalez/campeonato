@@ -22,7 +22,7 @@ class CreatePlayersTable extends Migration
             $table->string('path_profile');
             $table->foreignId('id_team');
 
-            $table->foreign('id_team')->references('id')->on('teams');
+            $table->foreign('id_team')->references('id')->on('teams')->onDelete('cascade');;
             $table->timestamps();
         });
     }
