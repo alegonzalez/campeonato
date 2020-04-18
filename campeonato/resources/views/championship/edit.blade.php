@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="card card_option col-md-5 offset-md-3" >
-    
+
     <img src="{{ asset('img/cup.png') }}" class="rounded mx-auto d-block icon_cup" alt="...">
     <div class="card-body col-md-12">
-        <form action="{{ route('update') }}" method="post">
+        <form action="{{ route('update',['id_champioship' =>$championship[0]->id]) }}" method="post">
             @csrf
             <div class="form-group text-center">
                 <label for="name_championship">Nombre del torneo</label>
@@ -15,5 +15,5 @@
               </div>
         </form>
     </div>
-    </div> 
+    </div>
 @endsection

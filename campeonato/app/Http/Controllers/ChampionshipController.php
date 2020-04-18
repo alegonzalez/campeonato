@@ -76,8 +76,8 @@ class ChampionshipController extends Controller
   *@param Request $request
   * @return view championship/edit.blade.php
   */
-  public function update(Request $request){
-    $championship = Championship::find(base64_decode($request->input('id_championship')));
+  public function update(Request $request,$id_champioship){
+  $championship = Championship::find($id_champioship);
     if ($request->isMethod('post')) {
       if($request->input('name_championship') != ""){
         $championship->name = $request->input('name_championship');
