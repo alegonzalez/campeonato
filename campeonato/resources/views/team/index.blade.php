@@ -8,15 +8,17 @@
     </div>
   @endauth
 
-  @if(count($championships) == 0))
-    <div  class="col-md-12 text-center">
-      <h1 class="empty">No se encuentra ningun torneo registrado, debes informar a la persona que le brindo el acceso que elabore los torneos
-        o bien puede crear sus propios torneos, solo debe de registrarse.
-      </h1>
+  @if(count($championships) == 0)
+    <div  class=" col-md-12 offset-md-1 text-center slide-left">
+
+  <h1 class="empty">No se encuentra ningun torneo registrado, debes informar a la persona que le brindo el acceso que elabore los torneos
+      o bien puede crear sus propios torneos, solo debe de registrarse.
+    </h1>
+
+
     </div>
   @else
-
-    <div class="card  col-md-6 offset-md-3" >
+    <div class="card  col-md-6 offset-md-3 " >
       <form action="{{ route('team/index',['key_share' =>isset($key_share) ? $key_share : ""]) }}"  id="form_serch_team" method="get">
         <br>
         <label for="team">Por favor seleccione el torneo para ver sus respectivos equipos</label>
@@ -33,13 +35,12 @@
           <br>
           <input type="hidden" name="id_championschip" id="id_championschip">
         </form>
-
       </div>
 
       @auth
         @if(count($teams))
           @foreach ($teams as $team)
-            <div class="card col-md-3 offset-md-1 list_team" >
+            <div class="card col-md-3 offset-md-1 list_team shadow-drop-2-bottom" >
               <br>
               @if($team->path_image == "")
                 <img src="{{ asset('img/team1.png') }}" class="rounded mx-auto d-block icon_option" alt="...">
@@ -68,12 +69,22 @@
             <br>
             {{$teams->links() }}
           </div>
+        @else
+          @if ($request_team == 'active')
+            <div class="col-md-8 offset-md-3 slide-left">
+              <br><br><br>
+              <h1>No se encuentra ningun equipo registrado.</h1>
+            </div>
+
+          @endif
+
         @endif
+
       @endauth
       @guest
         @if(count($teams))
           @foreach ($teams as $team)
-            <div class="card col-md-3 offset-md-1 list_team" >
+            <div class="card col-md-3 offset-md-1 list_team shadow-drop-2-bottom" >
               <br>
               @if($team->path_image == "")
                 <img src="{{ asset('img/team1.png') }}" class="rounded mx-auto d-block icon_option" alt="...">

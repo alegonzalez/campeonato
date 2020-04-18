@@ -18,11 +18,15 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+
         <!-- Scripts -->
         <script src="https://use.fontawesome.com/c3d5f77dc9.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="{{ asset('js/alert_sweet.js') }}" defer></script>
-        
+
+
+
     </head>
     <body>
         <div id="app">
@@ -34,7 +38,7 @@
 
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav w-100">
-          
+
           <li class="nav-item active">
             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }} <span class="sr-only">(current)</span></a>
           </li>
@@ -63,7 +67,7 @@
       </div>
 
               </div>
-                
+
             </main>
         </div>
     </body>

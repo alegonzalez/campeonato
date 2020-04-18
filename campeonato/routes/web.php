@@ -12,11 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
-Route::get('/home/{key_share?}', function () {
-    return view('welcome');
-})->name('home');
-*/
+
 Route::get('/logout', function () {
     Session::flush();
     Auth::logout();
@@ -40,4 +36,5 @@ Route::get('/team/index/{key_share?}', 'TeamController@index')->name('team/index
 Route::get('/team/create', 'TeamController@create')->name('team/create');
 Route::post('/team/storage', 'TeamController@storage')->name('team/storage');
 Route::get('/team/edit/{id_team}', 'TeamController@edit')->name('team/edit');
+Route::post('/team/update/{id_team}', 'TeamController@update')->name('team/update');
 Route::delete('/team/{id_team}', 'TeamController@destroy')->name('team/destroy');
