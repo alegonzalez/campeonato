@@ -2,12 +2,9 @@
 
 @section('content')
   <script src="{{ asset('js/team.js') }}" defer></script>
-  @auth
     <div class="col-md-12  text-right mb-3">
       <a href="{{ route('team/create' ) }}" class="btn btn-outline-primary setting_button"><i class="fa fa-plus" aria-hidden="true"></i> Crear</a>
     </div>
-  @endauth
-
   @if(count($championships) == 0)
     <div  class=" col-md-12 offset-md-1 text-center slide-left">
 
@@ -19,7 +16,7 @@
     </div>
   @else
     <div class="card  col-md-6 offset-md-3 " >
-      <form action="{{ route('team/index',['key_share' =>isset($key_share) ? $key_share : ""]) }}"  id="form_serch_team" method="get">
+      <form action="{{ route('team/index') }}"  id="form_serch_team" method="get">
         <br>
         <label for="team">Por favor seleccione el torneo para ver sus respectivos equipos</label>
         <input type="text" id="team" list="list_team" class="form-control"  placeholder="">

@@ -13,11 +13,20 @@ use DB;
 class TeamController extends Controller
 {
   /**
+  * Construct.
+  *
+  * @return void
+  */
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
+  /**
   * This function show the main page of teams
   *@param  Request $request,$key_share
   *@return view view/team/index.blade.php
   */
-  public function index(Request $request,$key_share = null){
+  public function index(Request $request){
     $id_championship = $request->get('id_championschip');
     $teams = [];
     $request_team = "";
@@ -31,10 +40,6 @@ class TeamController extends Controller
     if (Auth::check()) {
       $championships = Championship::where('id_user', Auth::id())->get();
       return view('team.index',['championships' => $championships,'teams'=>$teams,'request_team' => $request_team]);
-    }else{
-      $id_user_decode = $this->get_id_decode($key_share);
-      $championships = Championship::where('id_user', $id_user_decode)->get();
-      return view('team.index',['championships' => $championships,'key_share' =>$key_share,'teams'=>$teams,'request_team' => $request_team ]);
     }
   }
 
@@ -43,13 +48,8 @@ class TeamController extends Controller
   * @return view team/create.blade.php
   */
   public function create(){
-    if(Auth::check()){
-      $championships = Championship::where('id_user', Auth::id())->get();
-      return view('team.create_edit',['championships' => $championships,'action' =>'create']);
-    }else{
-      alert()->warning('No tienes acceso para realizar esta acción.', 'Acceso denegado');
-      return redirect('home');
-    }
+    $championships = Championship::where('id_user', Auth::id())->get();
+    return view('team.create_edit',['championships' => $championships,'action' =>'create']);
   }
   /**
   * This function create and save a new team in database
@@ -68,6 +68,7 @@ class TeamController extends Controller
       }
       $team->name = $request->input('name_team');
       $team->id_championships = $request->input('id_championschip');
+      $team->id_user = Auth::id();
       $team->save();
       alert()->success('El equipo con el nombre de ' . $team->name . ' se ha creado con exito');
       return redirect('team/index');
@@ -80,7 +81,6 @@ class TeamController extends Controller
   * @return view team/edit.blade.php
   */
   public function edit($id_team){
-    if(Auth::check()){
       $championships = Championship::where('id_user', Auth::id())->get();
       $team = DB::table('teams')
       ->join('championships', 'teams.id_championships', '=', 'championships.id')
@@ -88,10 +88,6 @@ class TeamController extends Controller
       ->where('teams.id', '=' , $id_team)
       ->get();
       return view('team.create_edit',["team"=>$team,'championships' => $championships,'action' =>'edit']);
-    }else{
-      alert()->warning('No tienes acceso para realizar esta acción.', 'Acceso denegado');
-      return redirect('home');
-    }
   }
   /**
   * This function show  page for  edit a specific team
@@ -111,6 +107,7 @@ class TeamController extends Controller
       }
       $team->name = $request->input('name_team');
       $team->id_championships = $request->input('id_championschip');
+      $team->id_user = Auth::id();
       $team->save();
       return redirect('team/index/'. $team->id_championships);
     }else{

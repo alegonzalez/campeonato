@@ -41,7 +41,7 @@
   <p class="card-text ">Puedes visualizar la información de los jugadores que pertenecen a un equipo.</p>
   @endguest
 
-          <a href="#" class="btn btn-outline-primary btn-lg btn-block">Ir</a>
+          <a href="{{route('player/index')}}" class="btn btn-outline-primary btn-lg btn-block">Ir</a>
         </div>
       </div>
 

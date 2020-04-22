@@ -18,8 +18,7 @@
         <h4 class="card-title">{{$championship->name}}</h4>
     <div class="offset-md-1">
         <a href="{{ route('championship/edit',['id_championship' => $championship->id] ) }}" class="btn btn-outline-success setting_button btn-lg btn-block"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp;Editar</a>
-
-      <br>
+<br>
         <form action="{{ route('destroy',['id_championship' => $championship->id])}}" method="POST" id="form_{{$championship->id}}">
           @method('DELETE')
           @csrf

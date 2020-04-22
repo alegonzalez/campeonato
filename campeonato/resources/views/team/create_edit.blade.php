@@ -9,14 +9,18 @@
       @if ($errors->any())
         <?php
         $message = "";
+        $cont = "";
         if($errors->has('id_championschip')){
-          $message.= "Debes de seleccionar un torneo " . "\n";
+          $message.= $cont . "- Debes de seleccionar un torneo " . "\n";
+          $cont++;
         }
         if ($errors->has('name_team')) {
-          $message.= "El campo nombre de equipo es requerido " . "\n";
+          $message.= $cont . "- El campo nombre de equipo es requerido " . "\n";
+          $cont++;
         }
         if ($errors->has('upload_photo')) {
-          $message.= "Solo se permite imagenes con formatos: jpeg,png,jpg " . "\n";
+          $message.= $cont . "- Solo se permite imagenes con formatos: jpeg,png,jpg " . "\n";
+          $cont++;
         }
         alert()->warning($message, 'Problemas al crear un nuevo equipo')->persistent('Close');
         ?>
