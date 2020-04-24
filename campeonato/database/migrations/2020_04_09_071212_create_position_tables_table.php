@@ -21,7 +21,7 @@ class CreatePositionTablesTable extends Migration
             $table->integer("goals_against");
             $table->integer("performance");
             $table->foreignId('id_championships');
-            $table->foreign('id_championships')->references('id')->on('championships')->onDelete('cascade');;
+            $table->foreign('id_championships')->references('id')->on('championships')->onDelete('cascade');
             $table->timestamps();
         });
     }

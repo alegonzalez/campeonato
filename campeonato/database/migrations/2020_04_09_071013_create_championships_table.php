@@ -17,7 +17,7 @@ class CreateChampionshipsTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->foreignId('id_user');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');;
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

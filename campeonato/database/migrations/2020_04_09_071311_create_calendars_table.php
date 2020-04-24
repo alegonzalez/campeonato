@@ -15,12 +15,15 @@ class CreateCalendarsTable extends Migration
     {
         Schema::create('calendars', function (Blueprint $table) {
             $table->id();
-            $table->string("team_one",100);
-            $table->string("team_two",100);
             $table->date("date_game");
             $table->time("time_game");
+            $table->boolean('round_trip_match');
+            $table->foreignId('team_one');
+            $table->foreignId('team_two');
             $table->foreignId('id_championships');
-            $table->foreign('id_championships')->references('id')->on('championships')->onDelete('cascade');;
+            $table->foreign('team_one')->references('id')->on('teams')->onDelete('cascade');
+            $table->foreign('team_two')->references('id')->on('teams')->onDelete('cascade');
+            $table->foreign('id_championships')->references('id')->on('championships')->onDelete('cascade');
             $table->timestamps();
         });
     }
