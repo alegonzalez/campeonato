@@ -16,6 +16,7 @@ class CreateChampionshipsTable extends Migration
         Schema::create('championships', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
+            $table->date("start_championship");
             $table->foreignId('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

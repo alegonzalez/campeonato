@@ -47,11 +47,12 @@ class ChampionshipController extends Controller
   * @return view championship/create.blade.php
   */
   public function storage(Request $request){
-
+    $date = explode("-",str_replace('/', '-', $request->input('start_match')));
     if ($request->isMethod('post')) {
       if($request->input('name_championship') != ""){
         $championship = new Championship;
         $championship->name = $request->input('name_championship');
+        $championship->start_championship = $date[2] . "-" . $date[0] . "-" . $date[1];
         $championship->id_user = Auth::id();
         $championship->save();
         alert()->success('El torneo ' . $championship->name . ' se ha creado exitosamente!!');
@@ -69,7 +70,9 @@ class ChampionshipController extends Controller
   * @return view championship/edit.blade.php
   */
   public function edit($id){
-    return view('championship/edit',["championship"=>Championship::where('id', $id)->get()]);
+    $championship = Championship::where('id', $id)->get();
+    $date = explode("/",str_replace('-', '/', $championship[0]->start_championship));
+    return view('championship/edit',["championship"=>$championship,'start_championship' =>  $date[1] . "/" . $date[2] . "/" . $date[0]]);
   }
   /**
   * This function show  page for  edit a specific championship
@@ -77,10 +80,12 @@ class ChampionshipController extends Controller
   * @return view championship/edit.blade.php
   */
   public function update(Request $request,$id_champioship){
-  $championship = Championship::find($id_champioship);
+    $championship = Championship::find($id_champioship);
+    $date = explode("-",str_replace('/', '-', $request->input('start_match')));
     if ($request->isMethod('post')) {
       if($request->input('name_championship') != ""){
         $championship->name = $request->input('name_championship');
+        $championship->start_championship = $date[2] . "-" . $date[0] . "-" . $date[1];
         $championship->save();
         alert()->success('El torneo ' . $championship->name . ' se actualizó exitosamente!!');
         return redirect('championship/index');
