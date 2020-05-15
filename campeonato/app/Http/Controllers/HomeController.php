@@ -21,8 +21,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($key_share = null)
+    public function index($key = null,$id_championship = null)
     {
-        return view('welcome',['key_share' => $key_share]);
+        return view('welcome',['key' => $key,'id_champioship' => $id_championship]);
     }
 }

@@ -19,7 +19,7 @@ Route::get('/logout', function () {
   return Redirect::to('home');
 });
 Auth::routes();
-Route::get('/home/{key_share?}', 'HomeController@index')->name('home');
+Route::get('/home/{key?}/{id_champioship?}', 'HomeController@index')->name('home');
 
 //championship
 Route::get('/championship/index', 'ChampionshipController@index')->name('championship/index');
@@ -48,3 +48,13 @@ Route::get('/player/edit/{id_player}', 'PlayerController@edit')->name('player/ed
 Route::post('/player/update/{id_player}', 'PlayerController@update')->name('player/update');
 Route::post('/player/destroy/{id_player}', 'PlayerController@destroy')->name('player/destroy');
 Route::get('/player/get_teams/{id_championship}', 'PlayerController@get_teams')->name('player/get_teams');
+
+//Calendar
+Route::get('/calendar/index/{key?}/{id_champioship?}', 'CalendarController@index')->name('calendar/index');
+Route::get('/calendar/show/{id_champioship}/{key?}', 'CalendarController@show')->name('calendar/show');
+Route::get('/calendar/create/{id_champioship}', 'CalendarController@create')->name('calendar/create');
+Route::post('/calendar/storage', 'CalendarController@store')->name('calendar/storage');
+Route::get('/calendar/edit/{id_champioship}', 'CalendarController@edit')->name('calendar/edit');
+Route::post('/calendar/update/{id_champioship}', 'CalendarController@update')->name('calendar/update');
+Route::get('/calendar/get_match/{id_champioship}', 'CalendarController@get_match')->name('calendar/get_match');
+Route::delete('/calendar/{id_championship}', 'CalendarController@destroy')->name('calendar/destroy');

@@ -1,0 +1,17 @@
+
+#calendar {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.fc-event{
+  background:red;
+  border-color:red;
+}
+.fc-day-grid-event .fc-content {
+  white-space: normal;
+}
+div .fc-more{
+  text-align: center;
+  font-size: 17px;
+}
