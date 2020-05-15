@@ -81,7 +81,7 @@
       @guest
         <p class="card-text ">Puedes observar la información de los equipos como : cantidad de punto,partidos jugados,goles a favor, goles en contra y el rendimiento.</p>
       @endguest
-      <a href="#" class="btn btn-outline-primary btn-lg btn-block">Ir</a>
+      <a href="{{route('table/index',['key' => $key,'id_champioship' => $id_champioship])}}" class="btn btn-outline-primary btn-lg btn-block">Ir</a>
     </div>
   </div>
   <div class="card card_option col-md-3 offset-1 shadow-drop-2-bottom " >
