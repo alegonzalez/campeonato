@@ -58,3 +58,9 @@ Route::get('/calendar/edit/{id_champioship}', 'CalendarController@edit')->name('
 Route::post('/calendar/update/{id_champioship}', 'CalendarController@update')->name('calendar/update');
 Route::get('/calendar/get_match/{id_champioship}', 'CalendarController@get_match')->name('calendar/get_match');
 Route::delete('/calendar/{id_championship}', 'CalendarController@destroy')->name('calendar/destroy');
+
+//position table
+Route::get('/table/index/{key?}/{id_champioship?}', 'TableController@index')->name('table/index');
+Route::get('/table/show/{id_championship}/{key?}', 'TableController@show')->name('table/show');
+Route::get('/table/edit/{id_table}', 'TableController@edit')->name('table/edit');
+Route::post('/table/update/{id_table}', 'TableController@update')->name('table/update');
