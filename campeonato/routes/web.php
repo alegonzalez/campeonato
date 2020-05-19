@@ -19,7 +19,7 @@ Route::get('/logout', function () {
   return Redirect::to('home');
 });
 Auth::routes();
-Route::get('/home/{key?}/{id_champioship?}', 'HomeController@index')->name('home');
+Route::get('/home/{id_champioship?}/{key?}', 'HomeController@index')->name('home');
 
 //championship
 Route::get('/championship/index', 'ChampionshipController@index')->name('championship/index');
@@ -50,8 +50,8 @@ Route::post('/player/destroy/{id_player}', 'PlayerController@destroy')->name('pl
 Route::get('/player/get_teams/{id_championship}', 'PlayerController@get_teams')->name('player/get_teams');
 
 //Calendar
-Route::get('/calendar/index/{key?}/{id_champioship?}', 'CalendarController@index')->name('calendar/index');
-Route::get('/calendar/show/{id_champioship}/{key?}', 'CalendarController@show')->name('calendar/show');
+Route::get('/calendar/index/', 'CalendarController@index')->name('calendar/index');
+Route::get('/calendar/show/{id_champioship?}/{key?}', 'CalendarController@show')->name('calendar/show');
 Route::get('/calendar/create/{id_champioship}', 'CalendarController@create')->name('calendar/create');
 Route::post('/calendar/storage', 'CalendarController@store')->name('calendar/storage');
 Route::get('/calendar/edit/{id_champioship}', 'CalendarController@edit')->name('calendar/edit');
@@ -60,7 +60,17 @@ Route::get('/calendar/get_match/{id_champioship}', 'CalendarController@get_match
 Route::delete('/calendar/{id_championship}', 'CalendarController@destroy')->name('calendar/destroy');
 
 //position table
-Route::get('/table/index/{key?}/{id_champioship?}', 'TableController@index')->name('table/index');
-Route::get('/table/show/{id_championship}/{key?}', 'TableController@show')->name('table/show');
+Route::get('/table/index', 'TableController@index')->name('table/index');
+Route::get('/table/show/{id_championship?}/{key?}', 'TableController@show')->name('table/show');
 Route::get('/table/edit/{id_table}', 'TableController@edit')->name('table/edit');
 Route::post('/table/update/{id_table}', 'TableController@update')->name('table/update');
+
+//breaches
+Route::get('/breach/index', 'BreachController@index')->name('breach/index');
+Route::get('/breach/create/{id_championship}', 'BreachController@create')->name('breach/create');
+Route::get('/breach/get_players/{id_team}', 'BreachController@get_list_players')->name('breach/get_players');
+Route::post('/breach/storage', 'BreachController@store')->name('breach/storage');
+Route::get('/breach/show/{id_championship}', 'BreachController@show')->name('breach/show');
+Route::get('/breach/edit/{id_breach}', 'BreachController@edit')->name('breach/edit');
+Route::post('/breach/update/{id_breach}', 'BreachController@update')->name('breach/update');
+Route::delete('/breach/{id_breach}', 'BreachController@destroy')->name('breach/destroy');
