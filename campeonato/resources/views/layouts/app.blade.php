@@ -52,17 +52,14 @@
 
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav w-100">
-
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }} <span class="sr-only">(current)</span></a>
-          </li>
           <li class="nav-item active">
             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="{{ route('share') }}">Compartir</a>
+            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }} <span class="sr-only">(current)</span></a>
           </li>
           @auth
+            @yield('share')
             <li class="nav-item dropdown ml-auto">
               <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{ Auth::user()->name }} <span class="caret"></span></a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
@@ -80,7 +77,7 @@
             @yield('content')
           </div>
         </div>
-</main>
+      </main>
     </div>
   </body>
   </html>

@@ -1,5 +1,14 @@
 @extends('layouts.app')
-@section('content')<br><br>
+@section('content')
+  <script type="text/javascript" src="{{ asset('js/share.js') }}"></script>
+  @auth
+    @section('share')
+      <li class="nav-item active">
+        <a class="nav-link" data-toggle="modal" data-target="#modal">Compartir</a>
+      </li>
+    @endsection
+
+  @endauth
   @if($id_champioship == "" && $key == "")
     <div class="card card_option col-md-3 shadow-drop-2-bottom" >
       <img src="{{ asset('img/cup.png') }}" class="rounded mx-auto d-block icon_option" alt="...">
@@ -110,9 +119,33 @@
         @endguest
       </div>
     </div>
-
   @endif
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="share_modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title " id="share_modal">Compartir torneo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          @if($championships != '')
+            <ul class="list-group">
 
+              @foreach ($championships as $championship)
+                <li class="list-group-item text-center">{{$championship->name}}<br>
+                  <input type="text" class="form-control" id ="{{$championship->id}}"value="http://localhost:8000/home/{{$championship->id}}/{{$share}}">
+                  &nbsp; &nbsp; <button type="button" class="btn  btn-outline-warning" onclick="copy_link('{{$championship->id}}')">Copiar</button></li>
+                @endforeach
+              </ul>
+            @endif
+          </div>
+          <div class="modal-footer">
+            <span>Nota: La información que otros usuarios podrán ver  será unicamente la sección del calendario y la tabla general.</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-
-@endsection
+  @endsection

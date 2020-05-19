@@ -28,8 +28,7 @@ Route::post('/championship/update/{id_champioship}', 'ChampionshipController@upd
 Route::get('/championship/create/', 'ChampionshipController@create')->name('championship/create');
 Route::post('/championship/storage/', 'ChampionshipController@storage')->name('storage');
 Route::delete('/championship/{id_championship}', 'ChampionshipController@destroy')->name('destroy');
-//share page
-Route::get('/user/share/', 'UserController@share_page')->name('share');
+
 
 //team
 Route::get('/team/index', 'TeamController@index')->name('team/index');
