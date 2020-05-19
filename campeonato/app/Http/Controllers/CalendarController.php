@@ -18,7 +18,7 @@ class CalendarController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
-  public function index($key = null,$id_championship = null)
+  public function index()
   {
     $calendar = [];
     if(Auth::check()){
@@ -26,16 +26,6 @@ class CalendarController extends Controller
       $calendar = $this->set_id_calendar($championships);
       $calendar = Calendar::whereIn('id_championships',$calendar)->get();
       return view('calendar.index',['championships' => $championships,'calendar' => $calendar]);
-    }else{
-      $championships = Championship::find($id_championship);
-      if (Hash::check($championships->id_user, $key)) {
-        $championships = Championship::find($id_championship);
-        $calendar = $this->set_id_calendar($championships);
-        $calendar = Calendar::whereIn('id_championships',$calendar)->get();
-        return view('calendar.index',['championships' => $championships,'calendar' => $calendar]);
-      }else{
-        abort(404);
-      }
     }
   }
   /**
@@ -152,9 +142,8 @@ class CalendarController extends Controller
   * @param  int  $id
   * @return \Illuminate\Http\Response
   */
-  public function show($id,$key = null)
+  public function show($id = null,$key = null)
   {
-
     if(Auth::check()){
       return view('calendar.show',['id_championship' => $id]);
     }else{
@@ -163,17 +152,19 @@ class CalendarController extends Controller
         if(count($user) == 0){
           return redirect('home') ;
         }else{
-            return view('calendar.show',['id_championship' => $id]);
+          return view('calendar.show',['id_championship' => $id]);
         }
+      }else{
+        return redirect('home');
       }
     }
   }
 
-/**
-*This function get all matches of a specific championships
-*@param $id_championship
-*@return Json with $matches,$start_championship and $teams
-*/
+  /**
+  *This function get all matches of a specific championships
+  *@param $id_championship
+  *@return Json with $matches,$start_championship and $teams
+  */
   public function get_match($id_championship){
     $matches = DB::table('matches')
     ->join('calendars', 'matches.id_calendar', '=', 'calendars.id')
@@ -211,11 +202,11 @@ class CalendarController extends Controller
     $weekdays = Weekday::find([1,2,3,4,5,6,7]);
     return view('calendar.edit',['calendar' => $calendar,'weekdays' => $weekdays,'id_champioship' => $id]);
   }
-/**
-*This function remove calendar by specific id of championship
-*@param $id
-*@return boolean
-*/
+  /**
+  *This function remove calendar by specific id of championship
+  *@param $id
+  *@return boolean
+  */
   private function remove_calendar($id){
     $calendar = Calendar::where('id_championships',$id)->get();
     for ($i=0; $i <count($calendar); $i++) {

@@ -15,11 +15,12 @@ class CreateBreachesTable extends Migration
     {
         Schema::create('breaches', function (Blueprint $table) {
             $table->id();
-            $table->string("player_name",100);
             $table->integer("yellow_card");
             $table->integer("red_card");
             $table->foreignId('id_player');
             $table->foreign('id_player')->references('id')->on('players')->onDelete('cascade');
+            $table->foreignId('id_championships');
+            $table->foreign('id_championships')->references('id')->on('championships')->onDelete('cascade');
             $table->timestamps();
         });
     }

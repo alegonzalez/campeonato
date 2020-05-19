@@ -211,16 +211,19 @@ $('#calendar').fullCalendar({
 				var away_match = [];
 				var all_matches = [];
 				var rematch = [];
-				response['matches'].sort((a, b) => (a.team_one > b.team_one) ? 1 : -1);
-				away_match = set_calendar(response['matches'],response['start_championship'][0].start_championship,response['teams']);
-				if(response['matches'][0].round_trip_match == 1){
-					var matches = 	reverse_teams(response['matches']);
-					matches.sort((a, b) => (a.team_one > b.team_one) ? 1 : -1);
-					var last_date = get_last_date(away_match);
-					rematch = set_calendar(matches,last_date,response['teams']);
+				if(response['matches'].length != 0){
+					response['matches'].sort((a, b) => (a.team_one > b.team_one) ? 1 : -1);
+					away_match = set_calendar(response['matches'],response['start_championship'][0].start_championship,response['teams']);
+
+					if(response['matches'][0].round_trip_match == 1){
+						var matches = 	reverse_teams(response['matches']);
+						matches.sort((a, b) => (a.team_one > b.team_one) ? 1 : -1);
+						var last_date = get_last_date(away_match);
+						rematch = set_calendar(matches,last_date,response['teams']);
+					}
+					all_matches = add_event_fullcalendar(away_match,rematch,response['teams']);
+					callback(all_matches);
 				}
-				all_matches = add_event_fullcalendar(away_match,rematch,response['teams']);
-				callback(all_matches);
 			}
 		});
 	},

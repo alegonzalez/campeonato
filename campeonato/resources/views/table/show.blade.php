@@ -15,7 +15,7 @@
           </th>
           <th class="th-md text-center">PE
           </th>
-        <th class="th-md text-center">PP
+          <th class="th-md text-center">PP
           </th>
           <th class="th-md text-center">GF
           </th>
@@ -47,11 +47,12 @@
             <td>{{$data->points}}</td>
             <td>{{$data->performance * 100}}%</td>
             @auth
-            <td><a href="{{ route('table/edit',['id_table' =>$data->id] ) }}" class="btn btn-outline-success setting_button btn-lg btn-block"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp;</a></td>
+              <td><a href="{{ route('table/edit',['id_table' =>$data->id] ) }}" class="btn btn-outline-success setting_button btn-lg btn-block"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp;</a></td>
             @endauth
           </tr>
         @endforeach
       </tbody>
     </table>
+    {{ $table->links() }}
   </div>
 @endsection

@@ -16,7 +16,7 @@ class TableController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
-  public function index($key = null, $id_champioship = null)
+  public function index()
   {
     $championship = Championship::where('id_user',Auth::id())->get();
     return view('table.index',['championships' => $championship]);
@@ -81,6 +81,8 @@ class TableController extends Controller
           $table = $this->get_all_table_championship($id_championship);
           return view('table.show',['table'=> $table]);
         }
+      }else{
+        return redirect('home');
       }
     }
   }
@@ -89,14 +91,14 @@ class TableController extends Controller
   *@param $id_championship
   *@return $table
   */
-private function get_all_table_championship($id_championship){
-  $table = DB::table('position_tables')
-  ->join('teams', 'position_tables.id_team', '=', 'teams.id')
-  ->select('position_tables.*','teams.name as team_name')
-  ->where('position_tables.id_championships','=',$id_championship)
-  ->get();
-  return $table;
-}
+  private function get_all_table_championship($id_championship){
+    $table = DB::table('position_tables')
+    ->join('teams', 'position_tables.id_team', '=', 'teams.id')
+    ->select('position_tables.*','teams.name as team_name')
+    ->where('position_tables.id_championships','=',$id_championship)
+    ->paginate(15);
+    return $table;
+  }
   /**
   * Show the form for editing the specified resource.
   *

@@ -22,7 +22,7 @@ class CreatePositionTablesTable extends Migration
             $table->integer("lost_matches");
             $table->integer("goals_scored");
             $table->integer("goals_against");
-            $table->float("performance",3,3);
+            $table->float("performance",3,2);
             $table->foreignId('id_championships');
             $table->foreignId('id_team');
             $table->foreign('id_championships')->references('id')->on('championships')->onDelete('cascade');
