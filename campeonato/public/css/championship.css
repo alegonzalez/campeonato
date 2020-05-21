@@ -1,0 +1,11 @@
+.div_create_button_championships a{
+  width: 28%;
+}
+@media only screen and (min-width: 768px) {
+  .div_create_button_championships a {
+      width: 42%;
+  }
+
+}
+
+}
