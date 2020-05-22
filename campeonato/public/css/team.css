@@ -1,0 +1,20 @@
+.list_team_div {
+  margin-top: 4%;
+  margin-left: 0%;
+  margin: 3%;
+}
+@media (max-width: 576px) {
+  .list_team_div {
+    margin-left: 16%;
+    margin-top: 7%;
+  }
+}
+input[type="file"] {
+    display: none;
+}
+#label_load_photo{
+  padding: 10px;
+  background: #17a2b8;
+  display: table;
+  color: #fff;
+}

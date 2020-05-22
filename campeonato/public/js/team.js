@@ -2,12 +2,7 @@ $(document).ready(function() {
   $("#search_team").click(function() {
     var val = $('#team').val()
     if (val == "") {
-      Swal.fire({
-        title: 'Debes seleccionar algun torneo para ver los equipos.',
-        icon: 'warning',
-        confirmButtonText: 'Aceptar',
-        showCloseButton: true
-      })
+      warning_message("Debes seleccionar algun torneo para ver los equipos.");
     } else {
       var id_championship = $('#list_team option').filter(function() {
         return this.value == val;
@@ -23,12 +18,7 @@ $(document).ready(function() {
     var val = $('#championship').val()
     if (val == "") {
       $("#id_championschip").val("");
-      Swal.fire({
-        title: 'Debes seleccionar algun torneo para ver los equipos.',
-        icon: 'warning',
-        confirmButtonText: 'Aceptar',
-        showCloseButton: true
-      })
+      warning_message("Debes seleccionar algun torneo para ver los equipos.");
     } else {
       var id_championship = $('#list_championship option').filter(function() {
         return this.value == val;
@@ -38,6 +28,15 @@ $(document).ready(function() {
   });
 });
 
+//This function get show message of any warning
+function warning_message(message){
+  Swal.fire({
+    title: message,
+    icon: 'warning',
+    confirmButtonText: 'Aceptar',
+    showCloseButton: true
+  })
+}
 /*
 *This function load image  when the user chooses an image using the file type button
 *return void

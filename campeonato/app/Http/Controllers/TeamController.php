@@ -125,7 +125,7 @@ class TeamController extends Controller
     $id_championship =  $team->id_championships;
     Storage::disk('public')->delete($team->path_image);
     $team->delete();
-    return redirect('team/index/'.$id_championship);
+    return redirect('team/index/');
   }
   /**
   * This function decode id user, is used base64

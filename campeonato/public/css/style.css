@@ -38,23 +38,22 @@ label {
 .empty {
   margin-top: 17%;
 }
-
-.list_team {
-  margin-top: 4%;
-  margin-left: 6%;
-}
 .img_team{
   width: 139px;
 }
 .weekday{
   cursor: pointer;
-display: inline-block;
-margin: 1%;
-margin-left: 0%;
-position: relative;
-left: 176px;
+  display: inline-block;
+  margin: 1%;
+  margin-left: 0%;
+  position: relative;
+  left: 176px;
 }
 
+.material-icons{
+  position: relative;
+  top: 8px;
+}
 
 
 
