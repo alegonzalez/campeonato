@@ -151,9 +151,8 @@ class PlayerController extends Controller
         ->join('game_positions', 'players.id_position_game', '=', 'game_positions.id')
         ->select('players.*', 'game_positions.name as name_position')
         ->where('id_team','=',[$array_id_team])
-        ->get();
+        ->paginate(10);
       }
-
       return response()->json(['teams' => $teams,'players' => $players]);
     }
     /**

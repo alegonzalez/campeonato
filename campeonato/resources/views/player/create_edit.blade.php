@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-  <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="{{ asset('js/jquery.min.js') }}" defer></script>
   <script src="{{ asset('js/player.js') }}" defer></script>
-  <div class="card col-md-6 offset-md-3 text-center" >
+  <div class="card col-10 offset-1 col-sm-11 offset-sm-1 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2 text-center" >
     <form class="" action="{{ ($action == 'create') ?  route('player/storage') : route('player/update',['id_player' =>$player[0]->id]) }}" id="form-player" method="post">
       @csrf
       <br>
@@ -45,7 +45,6 @@
         @else
           <input type="text" id="championship" list="list_championship" class="form-control" value="" required>
         @endif
-
         <datalist id="list_championship">
           @foreach ($championships as $championship)
             <option value="{{$championship->name}}" id="{{$championship->id}}" class="option_championship" data-xyz="{{$championship->id}}">
@@ -53,14 +52,12 @@
           </datalist>
           <br>
           <input type="hidden" name="id_championschip" id="id_championschip" value="{{($action == 'create' ? '' : $team[0]->id_championships)}}" >
-
         </div>
         <br>
         <div class=" datalist_team {{($action == 'create') ? 'disable_div' : ''}}">
           <label for="championship">Por favor seleccione el equipo</label>
           <input type="text" id="team" list="list_team" class="form-control" value="{{($action == 'edit' ? $player[0]->name_team : '')}}"   required>
           <datalist id="list_team">
-
             <br>
             @isset($teams)
               @if(count($teams) > 0)
@@ -71,7 +68,6 @@
               @endisset
             </datalist>
             <input type="hidden" name="id_team" id="id_team" value="{{($action == 'create' ? '' : $player[0]->id_team)}}" >
-
           </div>
           <br>
           <div class="form-group {{($action == 'create') ? 'disable_div' : ''}}">
@@ -110,7 +106,6 @@
                 </label>
               </div>
             @endif
-
           @endforeach
           <br><br>
           <div class="form-group {{($action == 'create') ? 'disable_div' : ''}}">
@@ -119,9 +114,8 @@
           </div>
           <?php  $icon = ($action == 'create') ? "<i class='fa fa-plus' aria-hidden='true'></i>" : "<i class='fa fa-pencil' aria-hidden='true'></i>"?>
           <button type="button" class="btn btn-primary" id="button_create_edit" > <?php echo $icon;  ?>  {{($action == 'create') ? 'Crear jugador' : 'Editar Jugador'}}</button>
-
         </form>
         <br>
       </div>
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+      <script type="text/javascript" src="{{ asset('js/alert.js') }}"></script>
     @endsection
