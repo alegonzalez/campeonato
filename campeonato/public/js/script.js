@@ -14,9 +14,6 @@ function set_calendar(matches,date_start_championship,teams){
 	var last = matches[0].team_one;
 
 	for (var i = 0; i < matches.length; i++) {
-		if(i == 20){
-			var hola = 0;
-		}
 		if(last != matches[i].team_one ){
 			array_date = date_start_championship.split('-');
 			number_day = d.getDay();
@@ -27,8 +24,6 @@ function set_calendar(matches,date_start_championship,teams){
 		number_day = date_temp.getDay();
 		count_day_month = getDaysInMonth(date_temporal[1],date_temporal[0]);
 		date_temporal = check_exist_team_same_date(info,date_temporal,matches[i].team_one,matches[i].team_two,matches[i].day,number_day,count_day_month);
-
-
 		var data = {
 			title: matches[i].team_one + " vs " + matches[i].team_two ,
 			start: date_temporal[0]+ "-" + date_temporal[1] +"-"+ date_temporal[2] + 'T' + convert_time_militar(matches[i].time_game)
@@ -45,41 +40,24 @@ function check_exist_team_same_date(info,date_temporal,id_team_one,id_team_two,n
 	var array_date = "";
 	var date = date_temporal[0] + "-" + date_temporal[1] + "-" + date_temporal[2];
 	var result = new Array();
-
 	for (var i = 0; i < info.length; i++) {
 		var id_teams = info[i].title.split('vs');
 		var date_match = info[i].start.split("T");
 		if(date == date_match[0]){
-			if(id_teams[0] == id_team_one || id_teams[1] == id_team_two || id_teams[0] == id_team_two || id_teams[1] == id_team_one  ){
-				array_date = get_date(name_day,number_day,count_day_month,date_temporal,);
-				date_temp  = new Date(date_temporal[0],parseInt(date_temporal[1]) - 1,date_temporal[2]);
+			if(id_teams[0].replace(/ /g, "") == id_team_one || id_teams[1].replace(/ /g, "") == id_team_two || id_teams[0].replace(/ /g, "") == id_team_two || id_teams[1].replace(/ /g, "") == id_team_one  ){
+				array_date = get_date(name_day,number_day,count_day_month,date.split('-'));
+				date_temp  = new Date(array_date[0],parseInt(array_date[1]) - 1,array_date[2]);
 				number_day = date_temp.getDay();
 				count_day_month = getDaysInMonth(array_date[1],array_date[0]);
-				entry = 1;
+				date = array_date[0] + "-" + array_date[1] + "-" + array_date[2];
+				i = 0;
 			}
 		}
 	}
-	if(entry == 1){
-		entry = 0;
-		result = 	check_exist_team_same_date(info,array_date,id_team_one,id_team_two,name_day,number_day,count_day_month);
-		return result;
-	}else{
-		if(array_date != ""){
-			result[0] = array_date[0].toString();
-			result[1] = array_date[1].toString();
-			result[2] = array_date[2].toString();
-		}else{
-			result[0] = date_temporal[0].toString();
-			result[1] = date_temporal[1].toString();
-			result[2] = date_temporal[2].toString();
-
-		}
-		return result;
-	}
-
+	return date.split('-');
 }
 //this function set date of match in calendar
-function get_date(name_day,number_day,count_day_month,array_date,time_matches){
+function get_date(name_day,number_day,count_day_month,array_date){
 	var result = 0;
 	var month = parseInt(array_date[1]);
 	var day  = parseInt(array_date[2]);
@@ -94,10 +72,10 @@ function get_date(name_day,number_day,count_day_month,array_date,time_matches){
 			break;
 		}
 	}
-	return 	validate_day_month_year(day,month,year,count_day_month,time_matches);
+	return 	validate_day_month_year(day,month,year,count_day_month);
 }
 //This function validate day month and year is true
-function validate_day_month_year(day,month,year,count_day_month,time_matches){
+function validate_day_month_year(day,month,year,count_day_month){
 	if(day <= count_day_month){
 
 	}else if(month < 12){
@@ -182,6 +160,7 @@ $('#calendar').fullCalendar({
 		center: 'title',
 		right: 'month'
 	},
+	handleWindowResize:true,
 	buttonText: {
 		today:    'Hoy',
 		month:    'Mes',
@@ -211,10 +190,10 @@ $('#calendar').fullCalendar({
 				var away_match = [];
 				var all_matches = [];
 				var rematch = [];
+				response['matches'] = put_day_time(response['matches'],response['weekend_time']);
 				if(response['matches'].length != 0){
 					response['matches'].sort((a, b) => (a.team_one > b.team_one) ? 1 : -1);
 					away_match = set_calendar(response['matches'],response['start_championship'][0].start_championship,response['teams']);
-
 					if(response['matches'][0].round_trip_match == 1){
 						var matches = 	reverse_teams(response['matches']);
 						matches.sort((a, b) => (a.team_one > b.team_one) ? 1 : -1);
@@ -222,12 +201,12 @@ $('#calendar').fullCalendar({
 						rematch = set_calendar(matches,last_date,response['teams']);
 					}
 					all_matches = add_event_fullcalendar(away_match,rematch,response['teams']);
+
 					callback(all_matches);
 				}
 			}
 		});
 	},
-
 	eventClick: function(event) {
 		if (event.url) {
 			$.magnificPopup.open({
@@ -241,11 +220,24 @@ $('#calendar').fullCalendar({
 	}
 
 });
+
+function put_day_time(matches,time_day){
+	var cont = 0;
+	var size = time_day.length;
+	for (var i = 0; i < matches.length; i++) {
+		matches[i]['day'] = time_day[cont].day;
+		matches[i]['time_game'] = time_day[cont].time_game;
+		cont = (size-1 == cont) ? 0 : cont + 1;
+	}
+	return matches;
+}
 //this function set all event to play soccer
 function add_event_fullcalendar(away_match,rematch,teams){
 	var  info_about_match = new Array();
+	var cont = 0;
 	for (var i = 0; i < away_match.length; i++) {
 		var id_teams = away_match[i].title.split('vs');
+
 		var data = {
 			title: get_name_team(teams,id_teams[0]) + " vs " + get_name_team(teams,id_teams[1]) ,
 			start: away_match[i].start

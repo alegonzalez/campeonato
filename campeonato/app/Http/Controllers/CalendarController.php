@@ -45,8 +45,7 @@ class CalendarController extends Controller
   *
   * @return \Illuminate\Http\Response
   */
-  public function create($id_championship)
-  {
+  public function create($id_championship){
     $weekdays = Weekday::find([1,2,3,4,5,6,7]);
     return view('calendar.create',['weekdays' => $weekdays,'id_champioship'=> $id_championship]);
 
@@ -60,55 +59,36 @@ class CalendarController extends Controller
   */
   public function store(Request $request)
   {
+    $calendar_id = $this->insert_data_calendar($request);
     $time = explode(",",$request->input('values_time'));
-    if($request->isMethod('post')){
-      for ($i=0; $i <count($time) ; $i++) {
-        if($request->input('weekdays_1') == 1){
-          $this->insert_data_calendar($time[$i],$request->input('weekdays_1'),$request);
-        }
-        if($request->input('weekdays_2') == 2){
-          $this->insert_data_calendar($time[$i],$request->input('weekdays_2'),$request);
-        }
-        if($request->input('weekdays_3') == 3){
-          $this->insert_data_calendar($time[$i],$request->input('weekdays_3'),$request);
-        }
-        if($request->input('weekdays_4') == 4){
-          $this->insert_data_calendar($time[$i],$request->input('weekdays_4'),$request);
-        }
-        if($request->input('weekdays_5') == 5){
-          $this->insert_data_calendar($time[$i],$request->input('weekdays_5'),$request);
-        }
-        if($request->input('weekdays_6') == 6){
-          $this->insert_data_calendar($time[$i],$request->input('weekdays_6'),$request);
-        }
-        if($request->input('weekdays_7') == 7){
-          $this->insert_data_calendar($time[$i],$request->input('weekdays_7'),$request);
+    for ($i=0; $i < count($time); $i++) {
+      for ($j=1; $j <= 7 ; $j++) {
+        if($request->input('weekdays_'.$j) == $j){
+          DB::table('weekdays_calendar')->insert(
+            ['id_day' => $j, 'time_game' => $time[$i],'id_calendar' => $calendar_id]
+          );
         }
       }
-      $this->generate_calendar($request->input('id_champioship'));
-      return redirect('calendar/index');
     }
+    $this->generate_calendar($request->input('id_champioship'),$calendar_id);
+    return redirect('calendar/index');
   }
+
+
 
   /**
   *insert in database all data  of calendar
-  *@param $time, $id_dat
-  *@return void
+  *@param Request $request
+  *@return integer id_calendar
   */
-  private function insert_data_calendar($time,$id_day,$request){
-    $calendar = new Calendar;
-    $calendar->round_trip_match = ($request->input('customSwitch1') == 'on') ? true : false;
-    $calendar->id_championships =$request->input('id_champioship');
-    $calendar->time_game = $time;
-    $calendar->id_day = $id_day;
-    $calendar->save();
+  private function insert_data_calendar($request){
+    return  DB::table('calendars')->insertGetId(
+      ['round_trip_match' => ($request->input('customSwitch1') == 'on') ? true : false, 'id_championships' => $request->input('id_champioship')]
+    );
   }
 
-  private function generate_calendar($id_championship){
-    //equipos
+  private function generate_calendar($id_championship,$calendar_id){
     $teams = Team::select('id')->where('id_championships',$id_championship)->get();
-    $calendar = Calendar::select('id')->where('id_championships',$id_championship)->get();
-    //time and day
     $matchs = array();
     foreach($teams as $k){
       foreach($teams as $j){
@@ -122,18 +102,12 @@ class CalendarController extends Controller
         }
       }
     }
-    $index = 0;
     foreach ($matchs as $key) {
       $match = new Match;
       $match->team_one =$key[0]->id;
       $match->team_two =$key[1]->id;
-      $match->id_calendar = $calendar[$index]->id;
+      $match->id_calendar = $calendar_id;
       $match->save();
-      if(count($calendar)-1 == $index){
-        $index = 0;
-      }else{
-        $index = $index + 1;
-      }
     }
   }
   /**
@@ -142,8 +116,7 @@ class CalendarController extends Controller
   * @param  int  $id
   * @return \Illuminate\Http\Response
   */
-  public function show($id = null,$key = null)
-  {
+  public function show($id = null,$key = null){
     if(Auth::check()){
       return view('calendar.show',['id_championship' => $id]);
     }else{
@@ -166,10 +139,15 @@ class CalendarController extends Controller
   *@return Json with $matches,$start_championship and $teams
   */
   public function get_match($id_championship){
+    $weekdays_calendar = DB::table('calendars')
+    ->join('weekdays_calendar','calendars.id','=','weekdays_calendar.id_calendar')
+    ->join('weekdays', 'weekdays_calendar.id_day', '=', 'weekdays.id')
+    ->select('weekdays.day','weekdays_calendar.time_game')
+    ->where('calendars.id_championships','=',$id_championship)
+    ->get();
     $matches = DB::table('matches')
     ->join('calendars', 'matches.id_calendar', '=', 'calendars.id')
-    ->join('weekdays', 'calendars.id_day', '=', 'weekdays.id')
-    ->select('weekdays.day','calendars.time_game','calendars.round_trip_match','matches.*')
+    ->select('calendars.round_trip_match','matches.*')
     ->where('calendars.id_championships','=',$id_championship)
     ->distinct('matches.id')
     ->orderBy('matches.team_one', 'asc')
@@ -183,7 +161,8 @@ class CalendarController extends Controller
     return response()->json([
       'matches' => $matches,
       'start_championship' => $start_championship,
-      'teams' => $teams
+      'teams' => $teams,
+      'weekend_time' => $weekdays_calendar
     ]);
   }
   /**
@@ -192,11 +171,11 @@ class CalendarController extends Controller
   * @param  int  $id
   * @return \Illuminate\Http\Response
   */
-  public function edit($id)
-  {
+  public function edit($id){
     $calendar = DB::table('calendars')
-    ->join('weekdays', 'calendars.id_day', '=', 'weekdays.id')
-    ->select('calendars.*','weekdays.id as id_weekday','weekdays.day')
+    ->join('weekdays_calendar','calendars.id','=','weekdays_calendar.id_calendar')
+    ->join('weekdays', 'weekdays_calendar.id_day', '=', 'weekdays.id')
+    ->select('calendars.*','weekdays.id as id_weekday','weekdays.day','weekdays_calendar.time_game')
     ->where('calendars.id_championships','=',$id)
     ->get();
     $weekdays = Weekday::find([1,2,3,4,5,6,7]);
@@ -224,40 +203,31 @@ class CalendarController extends Controller
   */
   public function update(Request $request, $id)
   {
-
+    $calendar = Calendar::find($id);
+    $calendar->round_trip_match = ($request->input('customSwitch1') == 'on') ? true : false;
+    $calendar->id_championships = $request->input('id_champioship');
+    $calendar->save();
+    $this->remove_element($id);
     $time = explode(",",$request->input('values_time'));
-    if($request->isMethod('post')){
-      if($this->remove_calendar($id)){
-        for ($i=0; $i <count($time) ; $i++) {
-          $calendar = new Calendar;
-          if($request->input('weekdays_1') == 1){
-            $this->insert_data_calendar($time[$i],$request->input('weekdays_1'),$request,$calendar);
-          }
-          if($request->input('weekdays_2') == 2){
-            $this->insert_data_calendar($time[$i],$request->input('weekdays_2'),$request,$calendar);
-          }
-          if($request->input('weekdays_3') == 3){
-            $this->insert_data_calendar($time[$i],$request->input('weekdays_3'),$request,$calendar);
-          }
-          if($request->input('weekdays_4') == 4){
-            $this->insert_data_calendar($time[$i],$request->input('weekdays_4'),$request,$calendar);
-          }
-          if($request->input('weekdays_5') == 5){
-            $this->insert_data_calendar($time[$i],$request->input('weekdays_5'),$request,$calendar);
-          }
-          if($request->input('weekdays_6') == 6){
-            $this->insert_data_calendar($time[$i],$request->input('weekdays_6'),$request,$calendar);
-          }
-          if($request->input('weekdays_7') == 7){
-            $this->insert_data_calendar($time[$i],$request->input('weekdays_7'),$request,$calendar);
-          }
+    for ($i=0; $i < count($time); $i++) {
+      for ($j=1; $j < 7; $j++) {
+        if($request->input('weekdays_'.$j) !=null){
+          DB::table('weekdays_calendar')->insert(
+            ['id_day' => $j, 'time_game' => $time[$i],'id_calendar' => $id]
+          );
         }
-        $this->generate_calendar($request->input('id_champioship'));
-        return redirect('calendar/index');
       }
     }
+    return redirect('calendar/index');
   }
-
+  /**
+  *This function remove element of table weekdays_calendar by calendar id
+  *@param $request
+  *@return void
+  */
+  private function remove_element($id){
+    DB::table('weekdays_calendar')->where('id_calendar', '=', $id)->delete();
+  }
   /**
   * Remove the specified calendar
   *

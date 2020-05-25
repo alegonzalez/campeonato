@@ -15,3 +15,52 @@ div .fc-more{
   text-align: center;
   font-size: 17px;
 }
+.material-icons {
+  position: relative;
+  top: 6px!important;;
+  left: 3px!important;
+}
+#add_hour_match{
+      margin-top: 5%;
+}
+.remove_hour{
+  width: 31%;
+  margin-left: 8%;
+}
+@media only screen and (max-width: 2000px) {
+  .weekday {
+    position: relative;
+    left: 130px;
+}
+}
+@media only screen and (max-width: 1199px) {
+  .weekday {
+      position: relative;
+      left: 75px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .weekday {
+      position: relative;
+      left: 75px;
+  }
+}
+
+
+@media only screen and (max-width: 575px) {
+  #add_hour_match{
+    margin-top: 2%;
+  }
+
+}
+@media only screen and (max-width: 436px) {
+  .list_hour {
+      width: 141%;
+      margin-left: -24%;
+  }
+  #generate_calendar {
+      width: 128%;
+      margin-left: -16%;
+  }
+}

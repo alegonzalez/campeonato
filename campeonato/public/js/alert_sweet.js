@@ -1,9 +1,9 @@
 $(document).ready(function() {
     //This event click show message before destroy the championship
     $(".setting_button").click(function() {
-        var championship = $(this).attr('id').split("_");
+        var championship = ($(this).attr('id') != "") ? $(this).attr('id').split("_"): '';
         Swal.fire({
-            title: '¿Deseas eliminar el torneo ' + championship[0] + ' ?',
+            title: '¿Deseas eliminar el torneo ' + championship[0] + '?',
             text: "No podrás revertir esto",
             icon: 'warning',
             showCancelButton: true,

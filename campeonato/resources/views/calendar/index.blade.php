@@ -4,7 +4,7 @@
   <script src="{{ asset('js/calendar.js') }}" defer></script>
   @foreach ($championships as $championship)
     @auth
-      <div class="card card_option col-md-3 offset-md-1 shadow-drop-2-bottom" >
+      <div class="card card_option {{ (count($championships) == 1) ? 'col-8 offset-2 col-sm-5 offset-sm-3 col-md-5 offset-md-3 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4':'col-8 offset-2 col-sm-5 offset-sm-1 col-md-4 offset-md-1 col-lg-3 offset-lg-1 col-xl-3 offset-xl-1' }}  shadow-drop-2-bottom" >
         <img src="{{ asset('img/cup.png') }}" class="rounded mx-auto d-block icon_option" alt="...">
         <div class="card-body col-md-12">
           <h4 class="card-title">{{$championship->name}}</h4>
@@ -35,5 +35,5 @@
       </div>
     @endauth
   @endforeach
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script type="text/javascript" src="{{ asset('js/alert.js') }}"></script>
 @endsection

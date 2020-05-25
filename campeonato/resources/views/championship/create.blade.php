@@ -4,7 +4,7 @@
   <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/tempusdominus_bootstrap.min.js') }}"></script>
-  <link rel="stylesheet" href="{{ asset('css/tempusdominus_bootstrap.min.js') }}" />
+  <link rel="stylesheet" href="{{ asset('css/tempusdominus_bootstrap.min.css') }}" />
   <script type="text/javascript" src="{{ asset('js/championship.js') }}"></script>
   <div class="card card_option col-10 offset-1 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-5 offset-xl-3" >
     <img src="{{ asset('img/cup.png') }}" class="rounded mx-auto d-block icon_cup" alt="...">

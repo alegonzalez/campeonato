@@ -70,7 +70,7 @@ function add_time(){
   var time = $("#time_match").val();
   var tag = "";
   if(validate_time(time)){
-    tag = '<li class="list-group-item">'+ time +' <button type="button" class="btn btn-outline-danger" onclick="remove_time(this);">    <i class="fa fa-trash" aria-hidden="true"></i> </button></li>'
+    tag = '<li class="list-group-item">'+ time +' <button type="button" class="btn btn-outline-danger remove_hour" onclick="remove_time(this);">    <i class="fa fa-trash" aria-hidden="true"></i> </button></li>'
     $(".list-group").append(tag);
   }
 }
@@ -108,12 +108,12 @@ function chageColor(id_weekday){
     $("#content_day_"+id_weekday).css("background-color","#117a8b");
     $("#content_day_"+id_weekday).css("color","#fff");
     $("#weekdays_"+id_weekday).val(id_weekday);
-    var tag = '<i class="fas fa-check"></i>';
+    var tag = '<span class="material-icons">done</span>';
     $("#content_day_"+id_weekday+" div h5").append(tag);
   }else{
     $("#content_day_"+id_weekday).css("background-color","#fff");
     $("#content_day_"+id_weekday).css("color","#343a40");
-    $("#content_day_"+id_weekday+" div h5 i").remove();
+    $("#content_day_"+id_weekday+" div h5 span").remove();
     $("#weekdays_"+id_weekday).val("");
   }
 }

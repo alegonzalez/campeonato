@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\Championship;
+use Illuminate\Support\Str;
 class HomeController extends Controller
 {
     /**
